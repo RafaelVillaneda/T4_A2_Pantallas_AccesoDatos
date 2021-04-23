@@ -174,11 +174,14 @@ class AltasAlumnos extends JFrame implements ActionListener{
 				}
 			}else if(e.getSource()==btnBorrar) {
 				restablecer(txtNombres,txtNumControl,txtApMaterno,txtApPaterno,comboCarrera,comboSemestre);
+			}else if(e.getSource()==btnCancelar) {
+				
 			}
 		}//Clase
 		
 	
 	public void restablecer(Component...ComonentesGraficos){
+		
 		for (Component Component : ComonentesGraficos) {
 			if(Component instanceof JComboBox) {
 				((JComboBox<?>)Component).setSelectedIndex(0);
