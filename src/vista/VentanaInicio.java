@@ -5,6 +5,7 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.util.Arrays;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
@@ -157,9 +158,12 @@ class AltasAlumnos extends JFrame implements ActionListener{
 					alumno.setPrimerAp(txtApMaterno.getText());
 					alumno.setSegundoAp(txtApPaterno.getText());
 					alumno.setCarrera((String) comboCarrera.getSelectedItem());
+					
 					System.out.println("Semestre: "+comboSemestre.getSelectedItem());
-					int semestre=(int) comboSemestre.getSelectedItem();
-					alumno.setSemestre((byte) semestre);
+					
+					//String semestre=comboSemestre.getItemAt((int) comboSemestre.getSelectedItem());
+					
+					alumno.setSemestre(comboSemestre.getSelectedIndex());
 					alumno.setEdad((byte) 18);
 					
 					boolean registro=aDAO.insertarRegistro(alumno);

@@ -54,8 +54,8 @@ public class Alumno {
 	public byte getSemestre() {
 		return semestre;
 	}
-	public void setSemestre(byte semestre) {
-		this.semestre = semestre;
+	public void setSemestre(int semestre) {
+		this.semestre = (byte) semestre;
 	}
 	public String getCarrera() {
 		return carrera;
