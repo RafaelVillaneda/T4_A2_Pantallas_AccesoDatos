@@ -172,7 +172,9 @@ class AltasAlumnos extends JFrame implements ActionListener{
 				//------------------
 				
 				}
-			}//IF btnAgregar
+			}else if(e.getSource()==btnBorrar) {
+				restablecer(txtNombres,txtNumControl,txtApMaterno,txtApPaterno,comboCarrera,comboSemestre);
+			}
 		}//Clase
 		
 	
@@ -182,12 +184,10 @@ class AltasAlumnos extends JFrame implements ActionListener{
 				((JComboBox<?>)Component).setSelectedIndex(0);
 			}else if(Component instanceof JTextField) {
 				((JTextField)Component).setText("");
-			}else if(Component instanceof JRadioButton) {
-				((JRadioButton)Component).setEnabled(false);
 			}
 		}
 		
-	}
+	}//Restablecer
 	
 	
 }
