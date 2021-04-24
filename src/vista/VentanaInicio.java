@@ -175,7 +175,7 @@ class AltasAlumnos extends JFrame implements ActionListener{
 			}else if(e.getSource()==btnBorrar) {
 				restablecer(txtNombres,txtNumControl,txtApMaterno,txtApPaterno,comboCarrera,comboSemestre);
 			}else if(e.getSource()==btnCancelar) {
-				
+				setVisible(false);
 			}
 		}//Clase
 		
