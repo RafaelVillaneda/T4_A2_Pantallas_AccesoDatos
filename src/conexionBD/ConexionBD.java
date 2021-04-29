@@ -3,9 +3,11 @@ package conexionBD;
 import java.sql.*;
 
 public class ConexionBD {
+	
 	private Connection conexion;
 	private Statement stm;
 	private ResultSet rs;
+	
 	public ConexionBD() {
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
