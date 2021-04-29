@@ -28,14 +28,20 @@ public class VentanaInicio {
 	public static void main(String[] args) {
 		Alumno a=new Alumno("S19070037","Rafael Eulalio","Villaneda","de la torre",(byte)50,(byte)3,"ISC");
 		
+		Alumno a2=new Alumno();
+		
 		
 		System.out.println("-----Bajas----");
 		AlumnoDAO ado=new AlumnoDAO();
-		//ado.insertarRegistro(a);
-		System.out.println(ado.eliminarRegistro("S19070037")==false?"Se elimino":"No se elimino");
+		//for(int i=0;i<10;i++) {
+			//
+	//	}
+		ado.insertarRegistro(a);
+		//System.out.println(ado.eliminarRegistro("S19070037")==false?"Se elimino":"No se elimino");
 		//System.out.println(ado.modificarRegistro(a)==false?"Se modifico":"No se modifico");
 		
-		ArrayList<Alumno> listaAlumnos=ado.buscarAlumnos(null);
+		
+		ArrayList<Alumno> listaAlumnos=ado.buscarAlumnos("S10");
 		if(listaAlumnos!=null) {
 			for (Alumno alumno : listaAlumnos) {
 				System.out.println("-->"+alumno);
@@ -47,7 +53,7 @@ public class VentanaInicio {
 		SwingUtilities.invokeLater(new Runnable() {			
 			@Override
 			public void run() {
-				//new EjegirVentana();
+				new EjegirVentana();
 			}
 		});
 		 

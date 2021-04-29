@@ -25,6 +25,8 @@ public class EjegirVentana extends JFrame implements ActionListener{
 		comboVentana.addItem("Selecciona pocion ...");
 		comboVentana.addItem("Altas");
 		comboVentana.addItem("Bajas");
+		comboVentana.addItem("Modificar un alumno");
+		
 		//comboVentana.addItem("Consultas");
 		add(comboVentana);
 		btnElegir=new JButton("Cargar Ventana");
@@ -41,6 +43,8 @@ public class EjegirVentana extends JFrame implements ActionListener{
 					new AltasAlumnos();
 				}else if(comboVentana.getSelectedIndex()==2) {
 					new Bajas();
+				}else if(comboVentana.getSelectedIndex()==3) {
+					new ModificaionesAlumnos();
 				}
 			}else {
 				JOptionPane.showMessageDialog(null,"Elige una ventana para mostrar");

@@ -1,16 +1,19 @@
 package vista;
 
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 
@@ -47,16 +50,17 @@ public class AltasAlumnos extends JFrame implements ActionListener{
 
 	AlumnoDAO aDAO=new AlumnoDAO();
 	
-	JTable mitabla = new JTable(6, 6);
-
-
+	JTable mitabla = new JTable(7,7);
+	
+	JScrollPane scroll=new JScrollPane(mitabla);
+	
 	public AltasAlumnos() {
 		
 		getContentPane().setLayout(gbl);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		setTitle("Altas alumnos");
 		setResizable(false);
-		setVisible(true);
+		
 		
 		alinear(0, 0, 1, 1, lblNumControl);
 		alinear(0, 1, 1, 1, lblNombres);
@@ -77,18 +81,54 @@ public class AltasAlumnos extends JFrame implements ActionListener{
 		alinear(2, 3, 1, 1, btnBorrar);
 		alinear(2, 5, 1, 1, btnCancelar);
 
-		alinear(0, 6, 3, 1, mitabla);
+		alinear(0, 6, 2, 1, scroll);
 		
 		btnAgregar.addActionListener(this);
 		btnBorrar.addActionListener(this);
 		btnCancelar.addActionListener(this);
 		
 		
+		String url="jdbc:mysql://localhost:3306/Escuela_Topicos";
+		String controlador="com.mysql.cj.jdbc.Driver";
+		String consulta ="SELECT *FROM alumnos";
+		ResultSetTableModel modeloDatos=null;
+		
+		try {
+			modeloDatos=new ResultSetTableModel(controlador, url,consulta);
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		JScrollPane scrollPane=new JScrollPane(mitabla);
+		mitabla.setModel(modeloDatos);
+		alinear(0, 6, 3, 1, scrollPane);
+		//mitabla.setPreferredSize(new Dimension(100,100));
+		
 		pack();
 		setLocationRelativeTo(null);
 		
-		btnAgregar.addActionListener(this);
-		btnBorrar.addActionListener(this);
+		setVisible(true);
+	}
+	public void actualizarTabla() {
+		
+		String controlador = "com.mysql.cj.jdbc.Driver";
+		String url = "jdbc:mysql://localhost:3306/Escuela_Topicos";
+		String consulta = "SELECT * FROM alumnos";
+		
+		ResultSetTableModel modeloDatos=null;
+		try {
+			modeloDatos = new ResultSetTableModel(controlador, url, consulta);
+		} catch (ClassNotFoundException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		} catch (SQLException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		mitabla.setModel(modeloDatos);
+		//scroll.setPreferredSize( 400, 600 );
 		
 	}
 	
@@ -105,41 +145,20 @@ public class AltasAlumnos extends JFrame implements ActionListener{
 		add(componente);
 		
 	}
+	
 	public boolean validarCajas() {
-		byte cont=0,correctos=0;
-		String cadena="";
-		String cadenasCajas[]=new String[3];
-		cadenasCajas[0]=txtNombres.getText();
-		cadenasCajas[1]=txtApMaterno.getText();
-		cadenasCajas[2]=txtApPaterno.getText();
-		for (int i = 0; i < cadenasCajas.length; i++) {
-			cadena=cadenasCajas[i];
-			for (int x = 0; x < cadena.length(); x++) {
-		        char c = cadena.charAt(x);
-		        // Si  está entre a y z, y entre A y Z, y es un espacio
-		        if (((c >= 'a' && c <= 'z') || (c >= 'A' && c <= 'Z') || c == ' ')) {
-		            cont++;
-		        }
+		if(txtNumControl.getText().isEmpty()) {
+			return false;
+		}else if(txtNombres.getText().isEmpty()) {
+			return false;
+		}else if(txtApMaterno.getText().isEmpty()) {
+			return false;
+		}else if(txtApPaterno.getText().isEmpty()) {
+			return false;
+		}else if(txtNombres.getText().isEmpty()) {
+			return false;
 		}
-	    if(!(cont==cadena.length())){
-	    	String cad2 = null;
-	    	if(i==0) {
-	    		cad2="Nombre";
-	    	}else if(i==1) {
-	    		cad2="Apelido Materno";
-	    	}else {
-	    		cad2="Apellido Paterno";
-	    	}
-	    	JOptionPane.showMessageDialog(null,"Solo puedes ingresar letras y espacios en el campo"+cad2);
-	    	cont=0;
-	    	}else {
-	    		correctos++;
-	    		cont=0;
-	    	}
-	    
-	    
-	    }//For
-	    return correctos==cadenasCajas.length;
+		return true;
 	}
 	@Override
 	public void actionPerformed(ActionEvent e) {
@@ -156,21 +175,19 @@ public class AltasAlumnos extends JFrame implements ActionListener{
 					alumno.setPrimerAp(txtApMaterno.getText());
 					alumno.setSegundoAp(txtApPaterno.getText());
 					alumno.setCarrera((String) comboCarrera.getSelectedItem());
-					
-					System.out.println("Semestre: "+comboSemestre.getSelectedItem());
-					
-					//String semestre=comboSemestre.getItemAt((int) comboSemestre.getSelectedItem());
-					
 					alumno.setSemestre(comboSemestre.getSelectedIndex());
 					alumno.setEdad((byte) 18);
 					
 					boolean registro=aDAO.insertarRegistro(alumno);
 					System.out.println(registro?"Exito":"Me cambio de carrera");
+					actualizarTabla();
+				}else {
+					JOptionPane.showMessageDialog(null,"Ingresa todos los datos");
 				}
 				//------------------
-				
 				}
 			}else if(e.getSource()==btnBorrar) {
+				System.out.println("Borrando");
 				restablecer(txtNombres,txtNumControl,txtApMaterno,txtApPaterno,comboCarrera,comboSemestre);
 			}else if(e.getSource()==btnCancelar) {
 				setVisible(false);

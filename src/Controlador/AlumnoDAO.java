@@ -56,7 +56,7 @@ public class AlumnoDAO {
 	public ArrayList<Alumno> buscarAlumnos(String filtro){
 		
 		ArrayList<Alumno> listaAlumnos=new ArrayList<>();
-		String sql="SELECT * FROM alumnos";
+		String sql="SELECT * FROM alumnos WHERE NumControl='"+filtro+"';";
 		
 		ResultSet rs=conexion.ejecutarConsulta(sql);
 		
@@ -71,6 +71,7 @@ public class AlumnoDAO {
 							rs.getByte(6),
 							rs.getString(7)));
 				}while(rs.next());
+				
 			}else {
 				return null;
 			}
