@@ -39,10 +39,8 @@ public class EjegirVentana extends JFrame implements ActionListener{
 			if(comboVentana.getSelectedIndex()!=0) {
 				if(comboVentana.getSelectedIndex()==1) {
 					new AltasAlumnos();
-					setVisible(false);
 				}else if(comboVentana.getSelectedIndex()==2) {
 					new Bajas();
-					
 				}
 			}else {
 				JOptionPane.showMessageDialog(null,"Elige una ventana para mostrar");

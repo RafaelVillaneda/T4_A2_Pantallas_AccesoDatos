@@ -34,7 +34,7 @@ public class VentanaInicio {
 		//ado.insertarRegistro(a);
 		System.out.println(ado.eliminarRegistro("S19070037")==false?"Se elimino":"No se elimino");
 		//System.out.println(ado.modificarRegistro(a)==false?"Se modifico":"No se modifico");
-		/*
+		
 		ArrayList<Alumno> listaAlumnos=ado.buscarAlumnos(null);
 		if(listaAlumnos!=null) {
 			for (Alumno alumno : listaAlumnos) {
@@ -43,11 +43,11 @@ public class VentanaInicio {
 		}else {
 			System.out.println("Null");
 		}
-		*/
+		
 		SwingUtilities.invokeLater(new Runnable() {			
 			@Override
 			public void run() {
-				new EjegirVentana();
+				//new EjegirVentana();
 			}
 		});
 		 
