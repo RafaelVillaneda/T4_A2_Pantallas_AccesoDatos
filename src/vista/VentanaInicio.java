@@ -36,7 +36,7 @@ public class VentanaInicio {
 		//for(int i=0;i<10;i++) {
 			//
 	//	}
-		ado.insertarRegistro(a);
+		//ado.insertarRegistro(a);
 		//System.out.println(ado.eliminarRegistro("S19070037")==false?"Se elimino":"No se elimino");
 		//System.out.println(ado.modificarRegistro(a)==false?"Se modifico":"No se modifico");
 		

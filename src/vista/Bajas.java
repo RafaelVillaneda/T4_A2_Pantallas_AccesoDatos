@@ -6,6 +6,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
@@ -105,6 +107,7 @@ public class Bajas extends JFrame implements ActionListener{
 		btnBorrar.setEnabled(false);
 		txtCarrera.setEnabled(false);
 		
+		
 		actualizarTabla();
 		JScrollPane scroll=new JScrollPane(mitabla);
 		alinear(0, 6, 5, 1, scroll);
@@ -133,29 +136,36 @@ public class Bajas extends JFrame implements ActionListener{
 		add(componente);
 		
 	}
+	
+	
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		if(e.getSource()==btnBuscar) {
 			ArrayList<Alumno> busqueda=ado.buscarAlumnos(txtNumControl.getText());
+			if(busqueda!=null){
+				Alumno alumBorrar=busqueda.get(0);
+				rellenar(alumBorrar);
+
+			}
 			
-			Alumno alumBorrar=busqueda.get(0);
-			rellenar(alumBorrar);
+			
+			
 			btnBorrar.setEnabled(true);
 			
 		}else if(e.getSource()==btnBorrar) {
-			
 			if(JOptionPane.showConfirmDialog(null,"Lo datos son correctos esta accion no se puede desaser")==0) {
 				boolean a=ado.eliminarRegistro(txtNumControl.getText());
 				btnBorrar.setEnabled(false);
 				
-				if(a) {
-					JOptionPane.showMessageDialog(null,"Se elimino el registro");
+				if(a==true) {
+					JOptionPane.showMessageDialog(null,"No elimino el registro");
 					actualizarTabla();
 				}else {
-					JOptionPane.showMessageDialog(null,"No se elimino el registro");
+					JOptionPane.showMessageDialog(null,"se elimino el registro");
+					actualizarTabla();
 				}
-			}
+				}
 			
 			
 			

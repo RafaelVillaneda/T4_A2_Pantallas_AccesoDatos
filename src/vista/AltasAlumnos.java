@@ -6,6 +6,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.sql.SQLException;
 
 import javax.swing.JButton;
@@ -105,6 +107,56 @@ public class AltasAlumnos extends JFrame implements ActionListener{
 		mitabla.setModel(modeloDatos);
 		alinear(0, 6, 3, 1, scrollPane);
 		//mitabla.setPreferredSize(new Dimension(100,100));
+		
+		txtNombres.addKeyListener(new KeyListener() {
+			
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char car = e.getKeyChar();
+				if(Character.isLetter(car) || Character.isSpaceChar(car)){
+					//String cadena=txtNombre.getText();
+					//txtNumControl.setText(cadena+e);
+				}else{
+				e.consume();
+				getToolkit().beep();
+				}
+			}
+			@Override public void keyPressed(KeyEvent e) {}
+			@Override public void keyReleased(KeyEvent e) {}
+		});
+		txtApMaterno.addKeyListener(new KeyListener() {
+			
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char car = e.getKeyChar();
+				if(Character.isLetter(car) || Character.isSpaceChar(car)){
+					//String cadena=txtNombre.getText();
+					//txtNumControl.setText(cadena+e);
+				}else{
+				e.consume();
+				getToolkit().beep();
+				}
+			}
+			@Override public void keyPressed(KeyEvent e) {}
+			@Override public void keyReleased(KeyEvent e) {}
+		});
+		
+		txtApPaterno.addKeyListener(new KeyListener() {
+			
+			@Override
+			public void keyTyped(KeyEvent e) {
+				char car = e.getKeyChar();
+				if(Character.isLetter(car) || Character.isSpaceChar(car)){
+					//String cadena=txtNombre.getText();
+					//txtNumControl.setText(cadena+e);
+				}else{
+				e.consume();
+				getToolkit().beep();
+				}
+			}
+			@Override public void keyPressed(KeyEvent e) {}
+			@Override public void keyReleased(KeyEvent e) {}
+		});
 		
 		pack();
 		setLocationRelativeTo(null);
